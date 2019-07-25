@@ -114,7 +114,7 @@ if(false === empty($search)){
     //範囲指定(まで)売価
     if(true === isset($search['search_item_price_to'])){
         //where句に入れる文言を設定
-        $where_list[] = 'item_pirce <= :item_price_to';
+        $where_list[] = 'item_price <= :item_price_to';
         //bindoする値を設定
         $bind_array[':item_price_to'] = $search['search_item_price_to'];
     }
@@ -194,6 +194,7 @@ $sql_main = 'SELECT * ' . $sql . $sql_limit_string . ';';
 $pre_count = $dbh->prepare($sql_count);
 $pre_main = $dbh->prepare($sql_main);
 
+//exit();
 // 値のバインド
 if(false === empty($bind_array)){
     foreach($bind_array as $k => $v){
@@ -321,6 +322,15 @@ function get_url_params($page_num){
         現在、以下の項目で検索をかけています。<br>
         <?php
             foreach($search as $k => $v) {
+                if($k === 'search_like_item_code'){$k = '商品コード';}
+                if($k === 'search_like_item_name'){$k = '商品名';}
+                if($k === 'search_item_price_from'){$k = '商品売価(以上)';}
+                if($k === 'search_item_price_to'){$k = '商品売価(以下)';}
+                if($k === 'search_item_cost_from'){$k = '商品原価(以上)';}
+                if($k === 'search_item_cost_to'){$k = '商品原価(以下)';}
+                if($k === 'search_created_from'){$k = '登録日(から)';}
+                if($k === 'search_created_to'){$k = '登録日（まで）';}
+                if($k === 'search_item_tax'){$k = '消費税';}
                 echo h($k), ': ', h($v), "<br>\n";
             }
         ?>

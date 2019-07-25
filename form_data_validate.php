@@ -35,6 +35,41 @@
      return $datum;
      
  }
+
+ function user_form_check($user_code){
+    //存在しない場合は空配列を返す
+    if('' === $user_code){
+        return array();
+    }
+    
+    //else
+    $dbh = get_dbh();
+    
+    $sql = 'select * from user where user_code = :user_code;';
+    $pre= $dbh->prepare($sql);
+    
+    $pre->bindValue(':user_code', $user_code, PDO::PARAM_STR);
+    $r = $pre->execute();
+    
+    if(false === $r){
+        echo "システムエラーがおきました。";
+        exit();
+    }
+    //データの取得
+    $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+    //var_dump($data);
+    
+    if(true === empty($data)){
+        return array();
+    }
+    //else
+    $datum = $data[0];
+    //var_dump($datum);
+    
+    return $datum;
+    
+}
+
  //validate
  //validateが全てokなら空配列、NG項目がある場合はerror_detailに値が入った配列を返す
  
@@ -67,6 +102,40 @@ function validate_item_form_update($datum){
 
        if (1 !== preg_match('/^[0-9]+$/', $datum['item_cost'])) {
            $error_detail["error_invalid_item_cost"] = true;
+       }     
+       
+       return $error_detail;
+}
+
+function validate_user_form($datum){
+    $error_detail = array(); 
+
+       // 型チェックを実装
+       if (1 !== preg_match('/^[0-9]+$/', $datum['user_post'])) {
+           $error_detail["error_invalid_user_post"] = true;
+       }
+
+       if (1 !== preg_match('/^[0-9]+$/', $datum['user_tel'])) {
+        $error_detail["error_invalid_user_tel"] = true;
+        }
+
+       if (1 !== preg_match('/^[a-zA-Z0-9]+$/', $datum['user_code'])) {
+           $error_detail["error_invalid_user_post"] = true;
+       }        
+       
+       return $error_detail;
+}
+
+function validate_user_form_update($datum){
+    $error_detail = array(); 
+
+       // 型チェックを実装
+       if (1 !== preg_match('/^[0-9]+$/', $datum['user_post'])) {
+           $error_detail["error_invalid_user_post"] = true;
+       }
+
+       if (1 !== preg_match('/^[0-9]+$/', $datum['user_tel'])) {
+           $error_detail["error_invalid_user_tel"] = true;
        }     
        
        return $error_detail;

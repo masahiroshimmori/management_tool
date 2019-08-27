@@ -232,6 +232,9 @@ function get_url_params($page_num){
     <title>顧客登録一覧</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+    
 <div class="container">
   <h1>顧客一覧</h1>
 

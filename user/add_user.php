@@ -40,6 +40,9 @@ $csrf_token = create_csrf_token_admin();
     <title>商品登録画面</title>
 </head>
 <body>
+
+    <?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+    
 <div class="container">
 <div class="row">
 
@@ -62,14 +65,14 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">顧客コードは半角英数で入力してください。<br></span>
         <?php endif; ?>
   
-                <label>顧客コード：</label>
+                <label>顧客コード：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="user_code" class="form-control" placeholder="顧客コード" value="<?php echo h(@$view_data['user_code']); ?>"><br>
 
         <?php if(isset($view_data['error_must_user_name']) && true === $view_data['error_must_user_name']): ?>
             <span class="text-danger">顧客名が未入力です。<br></span>
         <?php endif; ?>
       
-                <label>顧客名：</label>
+                <label>顧客名：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="user_name" class="form-control" placeholder="顧客名" value="<?php echo h(@$view_data['user_name']); ?>"><br>
 
         <?php if(isset($view_data['error_must_user_post']) && true === $view_data['error_must_user_post']): ?>
@@ -80,14 +83,14 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">郵便番号は半角数値のみで入力してください。<br></span>
         <?php endif; ?>        
 
-                <label>郵便番号(ハイフン不要)：</label>
+                <label>郵便番号(ハイフン不要)：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="user_post" class="form-control" placeholder="郵便番号" value="<?php echo h(@$view_data['user_post']); ?>"><br>
 
         <?php if(isset($view_data['error_must_user_address']) && true === $view_data['error_must_user_address']): ?>
             <span class="text-danger">住所が未入力です。<br></span>
         <?php endif; ?>     
 
-                <label>住所：</label>
+                <label>住所：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="user_address" class="form-control" placeholder="住所" value="<?php echo h(@$view_data['user_address']); ?>"><br>
 
         <?php if(isset($view_data['error_must_user_tel']) && true === $view_data['error_must_user_tel']): ?>
@@ -98,14 +101,14 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">電話番号は半角数値のみで入力してください。<br></span>
         <?php endif; ?>              
  
-                <label>電話番号(ハイフン不要)：</label>
+                <label>電話番号(ハイフン不要)：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="user_tel" class="form-control" placeholder="電話番号" value="<?php echo h(@$view_data['user_tel']); ?>"><br>
         
         <?php if(isset($view_data['error_validate_email']) && true === $view_data['error_validate_email']): ?>
             <span class="text-danger">メールアドレスの値が無効です。<br></span>
         <?php endif; ?>   
  
-                <label>email(任意)：</label>
+                <label>email(任意)：<span class="badge badge-primary">任意</span></label>
                 <input type="text" name="user_email" class="form-control" placeholder="E-MAIL" value="<?php echo h(@$view_data['user_emai;']); ?>"><br>
 
 

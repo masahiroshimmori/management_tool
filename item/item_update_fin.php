@@ -18,7 +18,7 @@ $item_edit_data = array();
 $error_detail = array();
 
 // 「パラメタの一覧」を把握
-$params = array('item_name', 'item_price', 'item_cost', 'item_tax');
+$params = array('item_name', 'item_price', 'item_cost', 'item_stock', 'item_tax');
 // データを取得する
 foreach($params as $p) {
     $item_edit_data[$p] = (string)@$_POST[$p];
@@ -68,7 +68,7 @@ $dbh = get_dbh();
 // INSERT文の作成と発行
 // ------------------------------
 // 準備された文(プリペアドステートメント)の用意
-$sql = 'UPDATE item SET item_name=:item_name, item_price=:item_price, item_cost=:item_cost, item_tax=:item_tax, updated=:updated WHERE item_code = :item_code;';
+$sql = 'UPDATE item SET item_name=:item_name, item_price=:item_price, item_cost=:item_cost, item_stock=:item_stock, item_tax=:item_tax, updated=:updated WHERE item_code = :item_code;';
 $pre = $dbh->prepare($sql);
 
 // 値のバインド
@@ -76,6 +76,7 @@ $pre->bindValue(':item_code', $item_code, PDO::PARAM_STR);
 $pre->bindValue(':item_name', $item_edit_data['item_name'], PDO::PARAM_STR);
 $pre->bindValue(':item_price', $item_edit_data['item_price'], PDO::PARAM_INT);
 $pre->bindValue(':item_cost', $item_edit_data['item_cost'], PDO::PARAM_INT);
+$pre->bindValue(':item_stock', $item_edit_data['item_stock'], PDO::PARAM_INT);
 $pre->bindValue(':item_tax', $item_edit_data['item_tax'], PDO::PARAM_INT);
 $pre->bindValue(':updated', date(DATE_ATOM), PDO::PARAM_STR);
 

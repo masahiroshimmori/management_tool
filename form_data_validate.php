@@ -35,6 +35,63 @@
      return $datum;
      
  }
+ 
+ function form_check_sales($sales_id){
+     //存在しない場合は空配列を返す
+     if('' === $sales_id){
+         return array();
+     }
+     
+     //else
+     $dbh = get_dbh();
+     
+     $sql_dat_sales = 'select * from dat_sales where sales_id = :sales_id;';
+     $pre= $dbh->prepare($sql_dat_sales);
+     
+     $pre->bindValue(':sales_id', $sales_id, PDO::PARAM_INT);
+     $r = $pre->execute();
+     
+     if(false === $r){
+         echo "システムエラーがおきました。";
+         exit();
+     }
+     //データの取得
+     $data_dat_sales = $pre->fetchAll(PDO::FETCH_ASSOC);
+     //var_dump($data);
+     
+     if(true === empty($data_dat_sales)){
+         return array();
+     }
+     //else
+     $datum1 = $data_dat_sales[0];
+     //var_dump($datum1);
+     
+     $sales_id = $datum1['sales_id'];
+     $sql_dat_user_item = 'SELECT user_sales_id, item_code, item_name, item_price, item_mount, item_tax from dat_user_item where user_item_dat = :user_item_dat;';
+     $pre= $dbh->prepare($sql_dat_user_item);
+     
+     $pre->bindValue(':user_item_dat', $sales_id, PDO::PARAM_INT);
+     $r = $pre->execute();
+
+     if(false === $r){
+        echo "システムエラーがおきました。";
+        exit();
+    }
+    //データの取得
+    $data_dat_user_item = $pre->fetchAll(PDO::FETCH_ASSOC);
+    //var_dump($data_dat_user_item);
+    
+    if(true === empty($data_dat_user_item)){
+        return array();
+    }
+    //else
+        $datum2 = $data_dat_user_item;
+
+    $datum = array($datum1, $datum2);
+    // var_dump($datum);
+    return $datum;
+     
+ }
 
  function user_form_check($user_code){
     //存在しない場合は空配列を返す
@@ -103,6 +160,10 @@ function validate_item_form_update($datum){
        if (1 !== preg_match('/^[0-9]+$/', $datum['item_cost'])) {
            $error_detail["error_invalid_item_cost"] = true;
        }     
+       
+       if (1 !== preg_match('/^[0-9]+$/', $datum['item_stock'])) {
+           $error_detail["error_invalid_item_stock"] = true;
+       }
        
        return $error_detail;
 }

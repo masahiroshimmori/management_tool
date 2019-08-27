@@ -32,6 +32,9 @@ if(true === isset($_SESSION['admin'])){
     <title>販売管理ツールメインメニュー</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/management_tool/common_parts/header.php"; ?>
+    
 <div class="container">
 <div class="row">
     <div class="col-12 text-center">
@@ -41,16 +44,22 @@ if(true === isset($_SESSION['admin'])){
     <p>ログイン成功</p>
     </div>
     <div class="col-12 text-center">
-    <p><a href="./item/add_item.php">商品登録画面</a></p>
+    <p><a href="./item/add_item.php" class="btn btn-light btn-lg btn-outline-dark">商品登録画面</a></p>
     </div>
     <div class="col-12 text-center">
-    <p><a href="./item/item_list.php">商品一覧画面</a></p>
+    <p><a href="./item/item_list.php" class="btn btn-light btn-lg btn-outline-dark">商品一覧画面</a></p>
     </div>
     <div class="col-12 text-center">
-    <p><a href="./user/add_user.php">顧客登録画面</a></p>
+    <p><a href="./user/add_user.php" class="btn btn-light btn-lg btn-outline-dark">顧客登録画面</a></p>
     </div>
     <div class="col-12 text-center">
-    <p><a href="./user/user_list.php">顧客一覧画面</a></p>
+    <p><a href="./user/user_list.php" class="btn btn-light btn-lg btn-outline-dark">顧客一覧画面</a></p>
+    </div>
+    <div class="col-12 text-center">
+    <p><a href="./sales/add_sales.php" class="btn btn-light btn-lg btn-outline-dark">売上登録画面</a></p>
+    </div>
+    <div class="col-12 text-center">
+    <p><a href="./sales/sales_list.php" class="btn btn-light btn-lg btn-outline-dark">売上一覧画面</a></p>
     </div>
 </div>
 </div>

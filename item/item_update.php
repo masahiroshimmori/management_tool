@@ -55,8 +55,11 @@ $csrf_token = create_csrf_token_admin();
     <title>商品修正画面</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+    
 <div class="container">
-<h1>フォーム内容修正</h1>
+<h1>商品情報内容修正</h1>
 
         <?php if( (isset($datum['error_csrf'])) && (true === $datum['error_csrf']) ) :?>
         <span class="text-danger">CSRFトークンでエラーが起きました。正しい転移を30分以内操作してください。</span><br>
@@ -80,7 +83,15 @@ $csrf_token = create_csrf_token_admin();
 
         <?php if(isset($datum['error_invalid_item_cost']) && true === $datum['error_invalid_item_cost']): ?>
             <span class="text-danger">原価は半角数値で入力してください。<br></span>
-        <?php endif; ?>              
+        <?php endif; ?>
+
+        <?php if(isset($datum['error_must_item_stock']) && true === $datum['error_must_item_stock']): ?>
+            <span class="text-danger">在庫数が未入力です。<br></span>
+        <?php endif; ?>
+
+        <?php if(isset($datum['error_invalid_item_stock']) && true === $datum['error_invalid_item_stock']): ?>
+            <span class="text-danger">在庫数は半角数値で入力してください。<br></span>
+        <?php endif; ?>
 
         <?php if(isset($datum['error_must_item_tax']) && true === $datum['error_must_item_tax']): ?>
             <span class="text-danger">消費税区分が未入力です。<br></span>
@@ -108,14 +119,24 @@ $csrf_token = create_csrf_token_admin();
             <td><input name="item_cost" value="<?php echo h($datum['item_cost']); ?>">円</td>
         </tr>
         <tr>
+            <td>在庫数(増減数ではなく総数を入れてください。)</td>
+            <td><input name="item_stock" value="<?php echo h($datum['item_stock']); ?>"></td>
+        </tr>
+        <tr>
             <td>消費税率</td>
             <td>
-            <input type="radio" name="item_tax" value="8"<?php if((int)$datum['item_tax'] === 8) echo ' checked';?>><p>8%</p><br>
-            <input type="radio" name="item_tax" value="10"<?php if((int)$datum['item_tax'] === 10) echo ' checked';?>><p>10%</p><br>
-            </td>          
+            <div class="form-check form-check-inline mb-5">
+                <input type="radio" name="item_tax" class="form-check-input" id="8" value="8"<?php if((int)$datum['item_tax'] === 8) echo ' checked';?>>
+                <label class="form-check-label" for="8">8%</label>
+            </div>
+            <div class="form-check form-check-inline mb-5">
+                <input type="radio" name="item_tax" class="form-check-input" id="10" value="10"<?php if((int)$datum['item_tax'] === 10) echo ' checked';?>>
+                <label class="form-check-label" for="10">10%</label>
+            </div>
+            </td>
         </tr>
         </table>
-        <a class="btn btn-light" href ="./item_list.php">戻る</a>
+        <a class="btn btn-light" href ="./item_list.php" onclick="history.back(); return false;">戻る</a>
         <button type="submit" class="btn btn-primary">修正</button>
 
     </form>

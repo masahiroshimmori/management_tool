@@ -57,5 +57,3 @@ if (false === $r) {
 //登録したメッセージを出力するためのフラグを持ち回る
 $_SESSION['output_buffer']['item_delete_success'] = true;
 header('Location: ./item_list.php');
-
-?>

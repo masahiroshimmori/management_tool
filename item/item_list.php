@@ -182,9 +182,8 @@ if(false === empty($search)){
     $bind_array[':start_page'] = ($page_num -1) * $contents_per_page;//[ページ数 - 1] * 1pageあたりの出力数
     $bind_array[':contents_per_page'] = $contents_per_page;
 
-//count用と通常用の２つのsqlを作成し、sqlを閉じる
+
 $sql_count = 'SELECT count(item_code) ' . $sql . ';';
-//SELECT count(item_code) FROM item WHERE $where_list;//例えばitem_tax = :item_tax
 $sql_main = 'SELECT * ' . $sql . $sql_limit_string . ';';
 //確認
 //var_dump($sql_count);
@@ -281,6 +280,9 @@ function get_url_params($page_num){
     <title>商品登録一覧</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+    
 <div class="container">
   <h1>商品一覧</h1>
 
@@ -350,6 +352,7 @@ function get_url_params($page_num){
     <th>売価</th>
     <th>原価</th>
     <th>消費税率</th>
+    <th>在庫数</th>
     <th>登録日</th>
     <th>修正日</th>
     <th></th>
@@ -363,6 +366,7 @@ function get_url_params($page_num){
     <td><?php echo h($datum['item_price']); ?>円</td>
     <td><?php echo h($datum['item_cost']); ?>円</td>
     <td><?php echo h($datum['item_tax']); ?>%</td>    
+    <td><?php echo h($datum['item_stock']); ?></td>    
     <td><?php echo h($datum['created']); ?></td>
     <td><?php echo h($datum['updated']); ?></td>
     <td><a class="btn btn-light" href="./item_detail.php?item_code=<?php echo rawurlencode($datum['item_code']); ?>">詳細</a></td>

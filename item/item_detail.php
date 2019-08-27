@@ -49,6 +49,9 @@ if (true === empty($datum)) {
     <title>商品登録明細</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+
 <div class="container">
 <h1>フォーム内容詳細</h1>
   <table class="table table-hover">
@@ -73,6 +76,10 @@ if (true === empty($datum)) {
     <td><?php echo h($datum['item_tax']); ?>%</td>
   </tr>
   <tr>
+    <td>在庫数</td>
+    <td><?php echo h($datum['item_stock']); ?></td>
+  </tr>
+  <tr>
     <td>作成日時</td>
     <td><?php echo h($datum['created']); ?></td>
   </tr>
@@ -81,7 +88,7 @@ if (true === empty($datum)) {
     <td><?php echo h($datum['updated']); ?></td>
   </tr>
   </table>
-  <a class="btn btn-light" href ="./item_list.php">戻る</a>
+  <a class="btn btn-light" href ="./item_list.php" onclick="history.back(); return false;">戻る</a>
 </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

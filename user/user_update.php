@@ -55,6 +55,9 @@ $csrf_token = create_csrf_token_admin();
     <title>商品修正画面</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+    
 <div class="container">
 <h1>フォーム内容修正</h1>
 
@@ -116,7 +119,7 @@ $csrf_token = create_csrf_token_admin();
             <td><input name="user_email" value="<?php echo h($datum['user_email']); ?>"></td>          
         </tr>
         </table>
-        <a class="btn btn-light" href ="./user_list.php">戻る</a>
+        <a class="btn btn-light" href ="./user_list.php" onclick="history.back(); return false;">戻る</a>
         <button type="submit" class="btn btn-primary">修正</button>
 
     </form>

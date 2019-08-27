@@ -40,6 +40,9 @@ $csrf_token = create_csrf_token_admin();
     <title>商品登録画面</title>
 </head>
 <body>
+
+<?php require_once dirname(__DIR__)."/common_parts/header.php"; ?>
+
 <div class="container">
 <div class="row">
 
@@ -62,14 +65,14 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">商品コードは半角英数で入力してください。<br></span>
         <?php endif; ?>
   
-                <label>商品コード：</label>
+                <label>商品コード：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="item_code" class="form-control" placeholder="商品コード" value="<?php echo h(@$view_data['item_code']); ?>"><br>
 
         <?php if(isset($view_data['error_must_item_name']) && true === $view_data['error_must_item_name']): ?>
             <span class="text-danger">商品名が未入力です。<br></span>
         <?php endif; ?>
       
-                <label>商品名：</label>
+                <label>商品名：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="item_name" class="form-control" placeholder="商品名" value="<?php echo h(@$view_data['item_name']); ?>"><br>
 
         <?php if(isset($view_data['error_must_item_price']) && true === $view_data['error_must_item_price']): ?>
@@ -80,7 +83,7 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">売価は半角数値で入力してください。<br></span>
         <?php endif; ?>        
 
-                <label>売価（税別）：</label>
+                <label>売価（税別）：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="item_price" class="form-control" placeholder="売価(税別)" value="<?php echo h(@$view_data['item_price']); ?>"><br>
 
         <?php if(isset($view_data['error_must_item_cost']) && true === $view_data['error_must_item_cost']): ?>
@@ -91,16 +94,22 @@ $csrf_token = create_csrf_token_admin();
             <span class="text-danger">原価は半角数値で入力してください。<br></span>
         <?php endif; ?>              
  
-                <label>原価（税別）：</label>
+                <label>原価（税別）：<span class="badge badge-danger">必須</span></label>
                 <input type="text" name="item_cost" class="form-control" placeholder="原価(税別)" value="<?php echo h(@$view_data['item_cost']); ?>"><br>
 
         <?php if(isset($view_data['error_must_item_tax']) && true === $view_data['error_must_item_tax']): ?>
             <span class="text-danger">消費税区分が未入力です。<br></span>
         <?php endif; ?>
 
-                <label>消費税率：</label>
-                <input type="radio" name="item_tax" class="form-control" value="8"><p>8%</p><br>
-                <input type="radio" name="item_tax" class="form-control" value="10"><p>10%</p><br>
+                <label>消費税率：<span class="badge badge-danger">必須</span></label><br>
+                <div class="form-check form-check-inline mb-5">
+                <input class="form-check-input" type="radio" name="item_tax" id="8" value="8">
+                <label class="form-check-label" for="8">8%</label>
+                </div>
+                <div class="form-check form-check-inline mb-5">
+                <input class="form-check-input" type="radio" name="item_tax" id="10" value="10">
+                <label class="form-check-label" for="10">10%</label>
+                </div>
 
                 <button type="submit" class="btn btn-lg btn-primary btn-block">商品登録</button>
 
